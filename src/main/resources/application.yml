@@ -1,0 +1,18 @@
+#端口号
+server:
+  port: 8080
+
+spring:
+  #数据源配置
+  datasource:
+    url: jdbc:mysql://118.190.144.204:3306/leo
+    username: root
+    password: zymroot!
+    driver-class-name: com.mysql.jdbc.Driver
+
+mybatis:
+  #实体类所做包
+  type-aliases-package: learning.model
+  #mapper.xml所在位置
+  mapper-locations: classpath:mapper/*Mapper.xml
+
