@@ -17,3 +17,10 @@ mybatis:
   #mapper.xml所在位置
   mapper-locations: classpath:mapper/*Mapper.xml
 
+#Spring-Boot Actustor暴露所有接口设置
+management:
+  endpoints:
+    web:
+      exposure:
+       include: "*"
+
