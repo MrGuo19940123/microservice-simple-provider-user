@@ -10,6 +10,10 @@ spring:
     password: zymroot!
     driver-class-name: com.mysql.jdbc.Driver
 
+  #用于指定注册到Eureka Server 上的应用名称
+  application:
+    name: microservice-provider-user
+
 #配置数据访问层
 mybatis:
   #实体类所做包
@@ -23,4 +27,13 @@ management:
     web:
       exposure:
        include: "*"
+
+#配置Eureka server
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://8761/eureka/
+  #表示将自己的IP注册到Eureka server
+  intance:
+    prefer-ip-address: true
 
