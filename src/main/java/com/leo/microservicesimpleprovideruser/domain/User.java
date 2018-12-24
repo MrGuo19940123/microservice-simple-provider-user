@@ -1,9 +1,10 @@
 package com.leo.microservicesimpleprovideruser.domain;
 
+import javax.validation.constraints.Min;
 import java.util.Objects;
 
 /**
-  * @Company     橙优科技-择所爱,爱所选
+  * @Company     不如吃茶去
   * @Author      郭志学
   * @Date        2018/11/20
   * @Version     1.0
@@ -12,7 +13,7 @@ import java.util.Objects;
 public class User {
     private Integer id;
     private String username;
-    private String name;
+    private String password;
     private Integer age;
     private String balance;
 
@@ -32,14 +33,15 @@ public class User {
         this.username = username;
     }
 
-    public String getName() {
-        return name;
+    public String getPassword() {
+        return password;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
+    @Min(value = 18, message = "未成年人禁止入内!")
     public Integer getAge() {
         return age;
     }
@@ -63,7 +65,7 @@ public class User {
         User user = (User) o;
         return Objects.equals(id, user.id) &&
                 Objects.equals(username, user.username) &&
-                Objects.equals(name, user.name) &&
+                Objects.equals(password, user.password) &&
                 Objects.equals(age, user.age) &&
                 Objects.equals(balance, user.balance);
     }
@@ -71,7 +73,7 @@ public class User {
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, username, name, age, balance);
+        return Objects.hash(id, username, password, age, balance);
     }
 
     @Override
@@ -79,7 +81,7 @@ public class User {
         return "User{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
-                ", name='" + name + '\'' +
+                ", name='" + password + '\'' +
                 ", age=" + age +
                 ", balance='" + balance + '\'' +
                 '}';

@@ -5,4 +5,20 @@
     <select id="findById" parameterType="java.lang.Long" resultType="user">
         SELECT * FROM user WHERE id = #{id}
     </select>
+
+
+    <insert id="addUser" parameterType="com.leo.microservicesimpleprovideruser.domain.User" >
+        INSERT INTO USER (username,password,age,balance) VALUES(#{username},#{password},#{age},#{balance})
+
+        <!--
+            LAST_INSERT_ID(): 必须与insert语句在同一个事务里面,才可以查询到最后一个增加的id
+            keyProperty: 指定主键的属性名称
+            resultType: 指定返回结果集的类型
+            order: 如果再insert语句之前运行,那么before,如果之后运行使用after
+         -->
+
+        <selectKey keyProperty="id" resultType="int" order="AFTER">
+            select LAST_INSERT_ID()
+        </selectKey>
+    </insert>
 </mapper>

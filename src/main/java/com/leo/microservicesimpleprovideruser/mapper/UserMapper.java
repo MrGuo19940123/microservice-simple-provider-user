@@ -4,6 +4,8 @@ import com.leo.microservicesimpleprovideruser.domain.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
+import javax.validation.Valid;
+
 /**
   * @Company     一生温暖纯良 不舍爱与自由
   * @Author      郭志学
@@ -20,4 +22,11 @@ public interface UserMapper {
      * @return User
      */
     User findById(Long id);
+
+    /**
+     * 添加一个用户
+     * @param user
+     * @return
+     */
+    int addUser(@Valid User user);
 }

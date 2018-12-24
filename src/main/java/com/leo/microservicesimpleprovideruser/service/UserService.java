@@ -2,6 +2,8 @@ package com.leo.microservicesimpleprovideruser.service;
 
 import com.leo.microservicesimpleprovideruser.domain.User;
 
+import javax.validation.Valid;
+
 public interface UserService {
 
     /***
@@ -10,4 +12,6 @@ public interface UserService {
      * @return User
      */
     User findById(Long id);
+
+    String addUser(@Valid User user);
 }

@@ -3,9 +3,12 @@ package com.leo.microservicesimpleprovideruser.controller;
 import com.leo.microservicesimpleprovideruser.domain.User;
 import com.leo.microservicesimpleprovideruser.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.Valid;
 
 /**
   * @Company     一生温暖纯良 不舍爱与自由
@@ -21,7 +24,7 @@ public class UserController {
     private UserService service;
 
 
-    /***
+    /**
      * 描述:根据用户ID获取用户信息<功能详细描述>
      * @Params []
      * @return User
@@ -32,4 +35,22 @@ public class UserController {
         User user = service.findById(id);
         return user;
     }
+
+    /**
+     * 添加一个用户
+     */
+    @RequestMapping("/addUser")
+    // @Valid 表示验证这个类里面加上@Min的信息
+    public String addUser(@Valid User user, BindingResult result){
+        // 判断如果有拦截则提示谭姐上面的拦截信息
+        if (result.hasErrors()){
+            String message = result.getFieldError().getDefaultMessage();
+            return message;
+        }
+
+        return service.addUser(user);
+
+    }
+
+
 }
