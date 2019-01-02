@@ -8,7 +8,7 @@
 
 
     <insert id="addUser" parameterType="com.leo.microservicesimpleprovideruser.domain.User" >
-        INSERT INTO USER (username,password,age,balance) VALUES(#{username},#{password},#{age},#{balance})
+        INSERT INTO USER (id,username,password,age,balance) VALUES(#{id},#{username},#{password},#{age},#{balance})
 
         <!--
             LAST_INSERT_ID(): 必须与insert语句在同一个事务里面,才可以查询到最后一个增加的id

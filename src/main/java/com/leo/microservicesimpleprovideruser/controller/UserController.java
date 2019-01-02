@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 
 /**
-  * @Company     一生温暖纯良 不舍爱与自由
+  * @Company    不如吃茶去
   * @Author      郭志学
   * @Date        2018/11/28
   * @Version     1.0
@@ -47,9 +47,14 @@ public class UserController {
             String message = result.getFieldError().getDefaultMessage();
             return message;
         }
+        String returnMsg = "网络异常,请稍后重试!";
+        try {
+            returnMsg = service.addUser(user);
 
-        return service.addUser(user);
-
+        } catch (Exception e) {
+            e.getStackTrace();
+        }
+        return returnMsg;
     }
 
 
