@@ -1,7 +1,12 @@
 package com.leo.microservicesimpleprovideruser.controller;
 
+import com.leo.microservicesimpleprovideruser.Utils.CommonUtils;
+import com.leo.microservicesimpleprovideruser.Utils.ConstantVar;
+import com.leo.microservicesimpleprovideruser.domain.HttpResult;
 import com.leo.microservicesimpleprovideruser.domain.User;
 import com.leo.microservicesimpleprovideruser.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +24,8 @@ import javax.validation.Valid;
   */
 @RestController
 public class UserController {
+
+    private final static Logger logger = LoggerFactory.getLogger(UserController.class);
 
     @Autowired
     private UserService service;
@@ -41,20 +48,24 @@ public class UserController {
      */
     @RequestMapping("/addUser")
     // @Valid 表示验证这个类里面加上@Min的信息
-    public String addUser(@Valid User user, BindingResult result){
-        // 判断如果有拦截则提示谭姐上面的拦截信息
+    public HttpResult<User> addUser(@Valid User user, BindingResult result){
+        // 判断如果有拦截则提示User上面的拦截信息
+        user.setId(CommonUtils.getRandomNum());
+
         if (result.hasErrors()){
             String message = result.getFieldError().getDefaultMessage();
-            return message;
+            return CommonUtils.success(ConstantVar.ADD_MESSAGE_NO,message,user);
         }
-        String returnMsg = "网络异常,请稍后重试!";
+
         try {
-            returnMsg = service.addUser(user);
+            String code = service.addUser(user);
+            return CommonUtils.success(code,"添加成功!",user);
 
         } catch (Exception e) {
+            logger.error("用户注册时发生异常,用户信息为:{},错误信息为:{}",user.toString(),e.getStackTrace());
             e.getStackTrace();
+            return CommonUtils.success(ConstantVar.ADD_MESSAGE_NO,ConstantVar.NETWORK_EXCEPTION,user);
         }
-        return returnMsg;
     }
 
 
