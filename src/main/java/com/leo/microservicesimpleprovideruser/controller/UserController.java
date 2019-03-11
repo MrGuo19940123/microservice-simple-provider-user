@@ -5,15 +5,21 @@ import com.leo.microservicesimpleprovideruser.Utils.ConstantVar;
 import com.leo.microservicesimpleprovideruser.domain.HttpResult;
 import com.leo.microservicesimpleprovideruser.domain.User;
 import com.leo.microservicesimpleprovideruser.service.UserService;
+import com.leo.microservicesimpleprovideruser.service.impl.RedisServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.cache.CacheProperties;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.util.List;
 
 /**
   * @Company    不如吃茶去
@@ -29,6 +35,9 @@ public class UserController {
 
     @Autowired
     private UserService service;
+
+    @Autowired
+    private RedisServiceImpl redis;
 
 
     /**
@@ -68,6 +77,17 @@ public class UserController {
         }
     }
 
-
+    /**
+     * 跳转到更改姓名页面
+     * @return
+     */
+    @RequestMapping(value = "toupdateNamePage.do")
+    public String toupdateNamePage(HttpServletRequest request){
+        String name = request.getParameter("name");
+        redis.set("name1",name);
+       String name2 = (String) redis.get("name1");
+        System.out.println(name2);
+        return name2;
+    }
 
 }

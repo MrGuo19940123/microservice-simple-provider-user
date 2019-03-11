@@ -9,6 +9,10 @@ spring:
     username: root
     password: root
     driver-class-name: com.mysql.jdbc.Driver
+  redis:
+    host: 118.190.144.204
+    port: 6379
+    password: root
 
 #配置数据访问层
 mybatis:
